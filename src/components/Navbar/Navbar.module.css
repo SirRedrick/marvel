@@ -1,0 +1,7 @@
+.nav {
+	grid-area: n;
+}
+
+.item a {
+	color: #000;
+}
