@@ -4,7 +4,7 @@ import Post from './Post/Post';
 import styles from './MyPosts.module.css';
 
 export default function MyPosts() {
-	let postData = [
+	let posts = [
 		{ id: 1, message: 'Hi, how are you?', likesCount: 12 },
 		{ id: 2, message: "It's my first post", likesCount: 11 },
 	];
@@ -21,8 +21,9 @@ export default function MyPosts() {
 				</div>
 			</div>
 			<div className={styles.posts}>
-				<Post message={postData[0].message} likesCount={postData[0].likesCount} />
-				<Post message={postData[1].message} likesCount={postData[0].likesCount} />
+				{posts.map((post) => (
+					<Post message={post.message} likesCount={post.likesCount} />
+				))}
 			</div>
 		</div>
 	);
