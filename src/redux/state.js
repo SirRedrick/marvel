@@ -21,13 +21,14 @@ let state = {
 	input: '',
 };
 
-export const addPost = (postMessage) => {
+export const addPost = () => {
 	const newPost = {
 		id: 5,
-		message: postMessage,
+		message: state.input,
 		likesCount: 0,
 	};
 	state.posts.push(newPost);
+	state.input = '';
 	rerenderEntireTree(state);
 };
 

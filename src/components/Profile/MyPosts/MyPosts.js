@@ -7,9 +7,7 @@ const MyPosts = ({ posts, input, addPost, changeInput }) => {
 	let newPostElement = React.createRef();
 
 	const handleClick = () => {
-		let text = newPostElement.current.value;
-		addPost(text);
-		newPostElement.current.value = '';
+		addPost();
 	};
 
 	const handleChange = () => {
