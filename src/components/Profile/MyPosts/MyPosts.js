@@ -3,16 +3,23 @@ import Post from './Post/Post';
 
 import styles from './MyPosts.module.css';
 
-const MyPosts = ({ posts }) => {
+const MyPosts = ({ posts, addPost }) => {
+	let newPostElement = React.createRef();
+
+	const handleClick = () => {
+		let text = newPostElement.current.value;
+		addPost(text);
+	};
+
 	return (
 		<div className={styles.postsBlock}>
 			<h3>My posts</h3>
 			<div>
 				<div>
-					<textarea></textarea>
+					<textarea ref={newPostElement}></textarea>
 				</div>
 				<div>
-					<button>Add Post</button>
+					<button onClick={handleClick}>Add Post</button>
 				</div>
 			</div>
 			<div className={styles.posts}>
