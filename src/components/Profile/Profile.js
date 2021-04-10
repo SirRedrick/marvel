@@ -5,11 +5,11 @@ import MyPosts from './MyPosts/MyPosts';
 
 import styles from './Profile.module.css';
 
-export default function Profile() {
+export default function Profile({ posts }) {
 	return (
 		<div className={styles.content}>
 			<ProfileInfo />
-			<MyPosts />
+			<MyPosts posts={posts} />
 		</div>
 	);
 }
