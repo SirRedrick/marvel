@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from '../render';
+
 let state = {
 	dialogs: [
 		{ id: 1, name: 'Dimych' },
@@ -16,15 +18,22 @@ let state = {
 		{ id: 1, message: 'Hi, how are you?', likesCount: 12 },
 		{ id: 2, message: "It's my first post", likesCount: 11 },
 	],
+	input: '',
 };
 
-export let addPost = (postMessage) => {
+export const addPost = (postMessage) => {
 	const newPost = {
 		id: 5,
 		message: postMessage,
 		likesCount: 0,
 	};
 	state.posts.push(newPost);
+	rerenderEntireTree(state);
+};
+
+export const changeInput = (value) => {
+	state.input = value;
+	rerenderEntireTree(state);
 };
 
 export default state;
