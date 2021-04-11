@@ -2,5 +2,5 @@ import React from 'react';
 // import styles from './News.module.css';
 
 export default function News() {
-	return <div>News</div>;
+  return <div>News</div>;
 }
