@@ -7,11 +7,11 @@ import MyPosts from './MyPosts/MyPosts';
 import styles from './Profile.module.css';
 
 const Profile = ({
-  posts, input, addPost, changeInput,
+  posts, postInput, dispatch,
 }) => (
   <div className={styles.content}>
     <ProfileInfo />
-    <MyPosts posts={posts} input={input} addPost={addPost} changeInput={changeInput} />
+    <MyPosts posts={posts} postInput={postInput} dispatch={dispatch} />
   </div>
 );
 
@@ -21,9 +21,8 @@ Profile.propTypes = {
     message: PropTypes.string,
     likesCount: PropTypes.number,
   })).isRequired,
-  input: PropTypes.string.isRequired,
-  addPost: PropTypes.func.isRequired,
-  changeInput: PropTypes.func.isRequired,
+  postInput: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default Profile;

@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 
 import Post from './Post/Post';
 
+import { addPostActionCreator, changePostInputActionCreator } from '../../../redux/state';
+
 import styles from './MyPosts.module.css';
 
 const MyPosts = ({
-  posts, input, addPost, changeInput,
+  posts, postInput, dispatch,
 }) => {
   const newPostElement = React.createRef();
 
   const handleClick = () => {
-    addPost();
+    dispatch(addPostActionCreator());
   };
 
   const handleChange = () => {
-    changeInput(newPostElement.current.value);
+    dispatch(changePostInputActionCreator(newPostElement.current.value));
   };
 
   return (
@@ -23,7 +25,7 @@ const MyPosts = ({
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea value={input} onChange={handleChange} ref={newPostElement} />
+          <textarea value={postInput} onChange={handleChange} ref={newPostElement} />
         </div>
         <div>
           <button type="button" onClick={handleClick}>Add Post</button>
@@ -44,9 +46,8 @@ MyPosts.propTypes = {
     message: PropTypes.string,
     likesCount: PropTypes.number,
   })).isRequired,
-  input: PropTypes.string.isRequired,
-  addPost: PropTypes.func.isRequired,
-  changeInput: PropTypes.func.isRequired,
+  postInput: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default MyPosts;

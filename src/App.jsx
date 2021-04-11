@@ -12,7 +12,7 @@ import Settings from './components/Settings/Settings';
 
 import './App.css';
 
-function App({ state, addPost, changeInput }) {
+function App({ state, dispatch }) {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -24,16 +24,20 @@ function App({ state, addPost, changeInput }) {
             render={() => (
               <Profile
                 posts={state.posts}
-                input={state.input}
-                addPost={addPost}
-                changeInput={changeInput}
+                postInput={state.postInput}
+                dispatch={dispatch}
               />
             )}
           />
           <Route
             path="/dialogs"
             render={() => (
-              <Dialogs dialogs={state.dialogs} messages={state.messages} />
+              <Dialogs
+                dialogs={state.dialogs}
+                messages={state.messages}
+                messageInput={state.messageInput}
+                dispatch={dispatch}
+              />
             )}
           />
           <Route path="/news" render={() => <News />} />
@@ -60,10 +64,10 @@ App.propTypes = {
       message: PropTypes.string,
       likesCount: PropTypes.number,
     })),
-    input: PropTypes.string,
+    postInput: PropTypes.string,
+    messageInput: PropTypes.string,
   }).isRequired,
-  addPost: PropTypes.func.isRequired,
-  changeInput: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default App;
