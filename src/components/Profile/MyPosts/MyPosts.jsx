@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Post from './Post/Post';
 
-import { addPostActionCreator, changePostInputActionCreator } from '../../../redux/profileReducer';
+import { addPost, updatePostInput } from '../../../redux/profileSlice';
 
 import styles from './MyPosts.module.css';
 
@@ -13,11 +13,11 @@ const MyPosts = ({
   const newPostElement = React.createRef();
 
   const handleClick = () => {
-    dispatch(addPostActionCreator());
+    dispatch(addPost());
   };
 
   const handleChange = () => {
-    dispatch(changePostInputActionCreator(newPostElement.current.value));
+    dispatch(updatePostInput(newPostElement.current.value));
   };
 
   return (

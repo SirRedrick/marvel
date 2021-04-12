@@ -1,11 +1,11 @@
-import dialogsReducer from './dialogsReducer';
-import profileReducer from './profileReducer';
-import sidebarReducer from './sidebarReducer';
+import dialogsReducer from './dialogsSlice';
+import profileReducer from './profileSlice';
+import sidebarReducer from './sidebarSlice';
 
 const store = {
   state: {
-    dialogsPage: {
-      dialogs: [
+    dialogs: {
+      contacts: [
         { id: 1, name: 'Dimych' },
         { id: 2, name: 'Andrey' },
         { id: 3, name: 'Sveta' },
@@ -20,7 +20,7 @@ const store = {
       ],
       messageInput: '',
     },
-    profilePage: {
+    profile: {
       posts: [
         { id: 1, message: 'Hi, how are you?', likesCount: 12 },
         { id: 2, message: "It's my first post", likesCount: 11 },

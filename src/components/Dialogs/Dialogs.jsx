@@ -4,27 +4,27 @@ import PropTypes from 'prop-types';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 
-import { addMessageActionCreator, changeMessageInputActionCreator } from '../../redux/dialogsReducer';
+import { addMessage, updateMessageInput } from '../../redux/dialogsSlice';
 
 import styles from './Dialogs.module.css';
 
 const Dialogs = ({
-  dialogs, messages, messageInput, dispatch,
+  contacts, messages, messageInput, dispatch,
 }) => {
   const newPostElement = React.createRef();
 
   const handleClick = () => {
-    dispatch(addMessageActionCreator());
+    dispatch(addMessage());
   };
 
   const handleChange = () => {
-    dispatch(changeMessageInputActionCreator(newPostElement.current.value));
+    dispatch(updateMessageInput(newPostElement.current.value));
   };
 
   return (
     <div className={styles.dialogs}>
       <div className={styles.dialogsItems}>
-        {dialogs.map((dialog) => (
+        {contacts.map((dialog) => (
           <DialogItem name={dialog.name} id={dialog.id} />
         ))}
       </div>
@@ -44,7 +44,7 @@ const Dialogs = ({
 };
 
 Dialogs.propTypes = {
-  dialogs: PropTypes.arrayOf(PropTypes.shape({
+  contacts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,

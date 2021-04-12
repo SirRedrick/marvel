@@ -22,8 +22,8 @@ function App({ state, dispatch }) {
           path="/profile"
           render={() => (
             <Profile
-              posts={state.profilePage.posts}
-              postInput={state.profilePage.postInput}
+              posts={state.profile.posts}
+              postInput={state.profile.postInput}
               dispatch={dispatch}
             />
           )}
@@ -32,9 +32,9 @@ function App({ state, dispatch }) {
           path="/dialogs"
           render={() => (
             <Dialogs
-              dialogs={state.dialogsPage.dialogs}
-              messages={state.dialogsPage.messages}
-              messageInput={state.dialogsPage.messageInput}
+              contacts={state.dialogs.contacts}
+              messages={state.dialogs.messages}
+              messageInput={state.dialogs.messageInput}
               dispatch={dispatch}
             />
           )}
@@ -49,8 +49,8 @@ function App({ state, dispatch }) {
 
 App.propTypes = {
   state: PropTypes.shape({
-    dialogsPage: PropTypes.shape({
-      dialogs: PropTypes.arrayOf(PropTypes.shape({
+    dialogs: PropTypes.shape({
+      contacts: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string,
       })),
@@ -60,7 +60,7 @@ App.propTypes = {
       })),
       messageInput: PropTypes.string,
     }).isRequired,
-    profilePage: PropTypes.shape({
+    profile: PropTypes.shape({
       posts: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number,
         message: PropTypes.string,
