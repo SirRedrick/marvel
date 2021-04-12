@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Header from './components/Header/Header';
@@ -14,58 +14,60 @@ import './App.css';
 
 function App({ state, dispatch }) {
   return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <Header />
-        <Navbar />
-        <div className="app-wrapper-content">
-          <Route
-            path="/profile"
-            render={() => (
-              <Profile
-                posts={state.posts}
-                postInput={state.postInput}
-                dispatch={dispatch}
-              />
-            )}
-          />
-          <Route
-            path="/dialogs"
-            render={() => (
-              <Dialogs
-                dialogs={state.dialogs}
-                messages={state.messages}
-                messageInput={state.messageInput}
-                dispatch={dispatch}
-              />
-            )}
-          />
-          <Route path="/news" render={() => <News />} />
-          <Route path="/music" render={() => <Music />} />
-          <Route path="/settings" render={() => <Settings />} />
-        </div>
+    <div className="app-wrapper">
+      <Header />
+      <Navbar />
+      <div className="app-wrapper-content">
+        <Route
+          path="/profile"
+          render={() => (
+            <Profile
+              posts={state.profilePage.posts}
+              postInput={state.profilePage.postInput}
+              dispatch={dispatch}
+            />
+          )}
+        />
+        <Route
+          path="/dialogs"
+          render={() => (
+            <Dialogs
+              dialogs={state.dialogsPage.dialogs}
+              messages={state.dialogsPage.messages}
+              messageInput={state.dialogsPage.messageInput}
+              dispatch={dispatch}
+            />
+          )}
+        />
+        <Route path="/news" render={() => <News />} />
+        <Route path="/music" render={() => <Music />} />
+        <Route path="/settings" render={() => <Settings />} />
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 
 App.propTypes = {
   state: PropTypes.shape({
-    dialogs: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    })),
-    messages: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      message: PropTypes.string,
-    })),
-    posts: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      message: PropTypes.string,
-      likesCount: PropTypes.number,
-    })),
-    postInput: PropTypes.string,
-    messageInput: PropTypes.string,
+    dialogsPage: PropTypes.shape({
+      dialogs: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })),
+      messages: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        message: PropTypes.string,
+      })),
+      messageInput: PropTypes.string,
+    }).isRequired,
+    profilePage: PropTypes.shape({
+      posts: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        message: PropTypes.string,
+        likesCount: PropTypes.number,
+      })),
+      postInput: PropTypes.string,
+    }).isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

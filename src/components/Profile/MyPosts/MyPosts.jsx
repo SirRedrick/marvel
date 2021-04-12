@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Post from './Post/Post';
 
-import { addPostActionCreator, changePostInputActionCreator } from '../../../redux/state';
+import { addPostActionCreator, changePostInputActionCreator } from '../../../redux/profileReducer';
 
 import styles from './MyPosts.module.css';
 
