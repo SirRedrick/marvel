@@ -1,32 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import MyPosts from './MyPosts';
 import { addPost, updatePostInput } from '../../../redux/profileSlice';
 
-const MyPostsContainer = ({
-  posts, postInput, dispatch,
-}) => {
-  const onAddPost = () => dispatch(addPost());
-  const onUpdatePostInput = (value) => dispatch(updatePostInput(value));
+const mapStateToProps = (state) => ({
+  posts: state.profile.posts,
+  postInput: state.profile.postInput,
+});
 
-  return (
-    <MyPosts
-      posts={posts}
-      postInput={postInput}
-      addPost={onAddPost}
-      updatePostInput={onUpdatePostInput}
-    />
-  );
-};
+const mapDispatchToProps = (dispatch) => ({
+  addPost: () => dispatch(addPost()),
+  updatePostInput: (value) => dispatch(updatePostInput(value)),
+});
 
-MyPostsContainer.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    message: PropTypes.string,
-    likesCount: PropTypes.number,
-  })).isRequired,
-  postInput: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;

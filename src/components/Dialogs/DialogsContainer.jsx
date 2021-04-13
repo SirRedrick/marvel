@@ -1,38 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { addMessage, updateMessageInput } from '../../redux/dialogsSlice';
 import Dialogs from './Dialogs';
 
-const DialogsContainer = ({
-  dialogs, dispatch,
-}) => {
-  const onAddMessage = () => dispatch(addMessage());
-  const onUpdateMessageInput = (value) => dispatch(updateMessageInput(value));
+const mapStateToProps = (state) => ({
+  contacts: state.dialogs.contacts,
+  messages: state.dialogs.messages,
+  messageInput: state.dialogs.messageInput,
+});
 
-  return (
-    <Dialogs
-      contacts={dialogs.contacts}
-      messages={dialogs.messages}
-      messageInput={dialogs.messageInput}
-      addMessage={onAddMessage}
-      updateMessageInput={onUpdateMessageInput}
-    />
-  );
-};
+const mapDispatchToProps = (dispatch) => ({
+  addMessage: () => dispatch(addMessage()),
+  updateMessageInput: (value) => dispatch(updateMessageInput(value)),
+});
 
-DialogsContainer.propTypes = {
-  dialogs: PropTypes.shape({
-    contacts: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    })),
-    messages: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      message: PropTypes.string,
-    })),
-    messageInput: PropTypes.string,
-  }).isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;

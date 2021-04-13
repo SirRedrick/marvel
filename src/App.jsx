@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
@@ -10,14 +10,14 @@ import News from './components/News/News';
 import Settings from './components/Settings/Settings';
 import './App.css';
 
-const App = ({ state, dispatch }) => (
+const App = () => (
   <BrowserRouter>
     <div className="app-wrapper">
       <Header />
       <Navbar />
       <div className="app-wrapper-content">
-        <Route path="/profile" render={() => (<Profile profile={state.profile} dispatch={dispatch} />)} />
-        <Route path="/dialogs" render={() => (<DialogsContainer dialogs={state.dialogs} dispatch={dispatch} />)} />
+        <Route path="/profile" render={() => (<Profile />)} />
+        <Route path="/dialogs" render={() => (<DialogsContainer />)} />
         <Route path="/news" render={() => <News />} />
         <Route path="/music" render={() => <Music />} />
         <Route path="/settings" render={() => <Settings />} />
@@ -26,29 +26,29 @@ const App = ({ state, dispatch }) => (
   </BrowserRouter>
 );
 
-App.propTypes = {
-  state: PropTypes.shape({
-    dialogs: PropTypes.shape({
-      contacts: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-      })).isRequired,
-      messages: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        message: PropTypes.string.isRequired,
-      })).isRequired,
-      messageInput: PropTypes.string.isRequired,
-    }).isRequired.isRequired,
-    profile: PropTypes.shape({
-      posts: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        message: PropTypes.string.isRequired,
-        likesCount: PropTypes.number.isRequired,
-      })).isRequired,
-      postInput: PropTypes.string.isRequired,
-    }).isRequired.isRequired,
-  }).isRequired.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
+// App.propTypes = {
+//   state: PropTypes.shape({
+//     dialogs: PropTypes.shape({
+//       contacts: PropTypes.arrayOf(PropTypes.shape({
+//         id: PropTypes.number.isRequired,
+//         name: PropTypes.string.isRequired,
+//       })).isRequired,
+//       messages: PropTypes.arrayOf(PropTypes.shape({
+//         id: PropTypes.number.isRequired,
+//         message: PropTypes.string.isRequired,
+//       })).isRequired,
+//       messageInput: PropTypes.string.isRequired,
+//     }).isRequired.isRequired,
+//     profile: PropTypes.shape({
+//       posts: PropTypes.arrayOf(PropTypes.shape({
+//         id: PropTypes.number.isRequired,
+//         message: PropTypes.string.isRequired,
+//         likesCount: PropTypes.number.isRequired,
+//       })).isRequired,
+//       postInput: PropTypes.string.isRequired,
+//     }).isRequired.isRequired,
+//   }).isRequired.isRequired,
+//   dispatch: PropTypes.func.isRequired,
+// };
 
 export default App;
