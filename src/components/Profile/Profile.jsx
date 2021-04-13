@@ -2,26 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import MyPosts from './MyPosts/MyPosts';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 import styles from './Profile.module.css';
 
 const Profile = ({
-  posts, postInput, dispatch,
+  profile, dispatch,
 }) => (
   <div className={styles.content}>
     <ProfileInfo />
-    <MyPosts posts={posts} postInput={postInput} dispatch={dispatch} />
+    <MyPostsContainer posts={profile.posts} postInput={profile.postInput} dispatch={dispatch} />
   </div>
 );
 
 Profile.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    message: PropTypes.string,
-    likesCount: PropTypes.number,
-  })).isRequired,
-  postInput: PropTypes.string.isRequired,
+  profile: PropTypes.shape({
+    posts: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      message: PropTypes.string.isRequired,
+      likesCount: PropTypes.number.isRequired,
+    })),
+    postInput: PropTypes.string.isRequired,
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

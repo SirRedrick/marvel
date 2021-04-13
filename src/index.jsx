@@ -11,8 +11,7 @@ const rerenderEntireTree = (state) => {
       <BrowserRouter>
         <App
           state={state}
-          // eslint-disable-next-line react/jsx-no-bind
-          dispatch={store.dispatch.bind(store)}
+          dispatch={store.dispatch}
         />
       </BrowserRouter>
     </React.StrictMode>,

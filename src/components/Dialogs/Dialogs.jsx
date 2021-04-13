@@ -1,25 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-
-import { addMessage, updateMessageInput } from '../../redux/dialogsSlice';
-
 import styles from './Dialogs.module.css';
 
 const Dialogs = ({
-  contacts, messages, messageInput, dispatch,
+  contacts, messages, messageInput, addMessage, updateMessageInput,
 }) => {
   const newPostElement = React.createRef();
-
-  const handleClick = () => {
-    dispatch(addMessage());
-  };
-
-  const handleChange = () => {
-    dispatch(updateMessageInput(newPostElement.current.value));
-  };
+  const handleClick = () => addMessage();
+  const handleChange = () => updateMessageInput(newPostElement.current.value);
 
   return (
     <div className={styles.dialogs}>
@@ -53,7 +43,8 @@ Dialogs.propTypes = {
     message: PropTypes.string.isRequired,
   })).isRequired,
   messageInput: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  addMessage: PropTypes.func.isRequired,
+  updateMessageInput: PropTypes.func.isRequired,
 };
 
 export default Dialogs;

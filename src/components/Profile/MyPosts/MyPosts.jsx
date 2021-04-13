@@ -1,24 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Post from './Post/Post';
-
-import { addPost, updatePostInput } from '../../../redux/profileSlice';
-
 import styles from './MyPosts.module.css';
 
 const MyPosts = ({
-  posts, postInput, dispatch,
+  posts, postInput, addPost, updatePostInput,
 }) => {
   const newPostElement = React.createRef();
-
-  const handleClick = () => {
-    dispatch(addPost());
-  };
-
-  const handleChange = () => {
-    dispatch(updatePostInput(newPostElement.current.value));
-  };
+  const handleClick = () => addPost();
+  const handleChange = () => updatePostInput(newPostElement.current.value);
 
   return (
     <div className={styles.postsBlock}>
@@ -47,7 +37,8 @@ MyPosts.propTypes = {
     likesCount: PropTypes.number,
   })).isRequired,
   postInput: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  addPost: PropTypes.func.isRequired,
+  updatePostInput: PropTypes.func.isRequired,
 };
 
 export default MyPosts;
