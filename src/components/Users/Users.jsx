@@ -1,45 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as axios from 'axios';
 import styles from './Users.module.css';
+import userIcon from '../../assets/images/default-user-icon.png';
 
 const Users = ({
   users, follow, unfollow, setUsers,
 }) => {
   if (users.length === 0) {
-    setUsers([
-      {
-        id: 1,
-        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-        followed: false,
-        fullName: 'Dmitry',
-        status: 'I am a boss',
-        location: { city: 'Minsk', country: 'Belarus' },
-      },
-      {
-        id: 2,
-        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-        followed: true,
-        fullName: 'Sasha',
-        status: 'I am a too',
-        location: { city: 'Moscow', country: 'Russia' },
-      },
-      {
-        id: 3,
-        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-        followed: false,
-        fullName: 'Tolya',
-        status: 'I am as well',
-        location: { city: 'Kiev', country: 'Ukraine' },
-      },
-      {
-        id: 4,
-        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-        followed: false,
-        fullName: 'Ben',
-        status: 'No, I am a boss',
-        location: { city: 'Seattle', country: 'USA' },
-      },
-    ]);
+    axios.get('https://social-network.samuraijs.com/api/1.0/users').then((res) => {
+      setUsers(res.data.items);
+    }).catch((err) => console.log(err));
   }
 
   return (
@@ -48,7 +19,7 @@ const Users = ({
         <div key={user.id}>
           <span>
             <div>
-              <img src={user.photoUrl} alt="user avatar" className={styles.photo} />
+              <img src={user.photos.small || userIcon} alt="user avatar" className={styles.photo} />
             </div>
             <div>
               {user.followed
@@ -58,12 +29,12 @@ const Users = ({
           </span>
           <span>
             <span>
-              <div>{user.fullName}</div>
+              <div>{user.name}</div>
               <div>{user.status}</div>
             </span>
             <span>
-              <div>{user.location.country}</div>
-              <div>{user.location.city}</div>
+              <div>user.location.country</div>
+              <div>user.location.city</div>
             </span>
           </span>
         </div>
