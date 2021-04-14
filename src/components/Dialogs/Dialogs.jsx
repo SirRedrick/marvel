@@ -14,13 +14,13 @@ const Dialogs = ({
   return (
     <div className={styles.dialogs}>
       <div className={styles.dialogsItems}>
-        {contacts.map((dialog) => (
-          <DialogItem name={dialog.name} id={dialog.id} />
+        {contacts.map((contact) => (
+          <DialogItem name={contact.name} key={contact.id} id={contact.id} />
         ))}
       </div>
       <div className={styles.messages}>
         {messages.map((message) => (
-          <Message message={message.message} />
+          <Message message={message.message} key={message.id} />
         ))}
         <div>
           <textarea value={messageInput} onChange={handleChange} ref={newPostElement} placeholder="Enter your message" />

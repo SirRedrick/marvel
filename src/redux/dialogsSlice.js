@@ -18,14 +18,6 @@ const initialState = {
   messageInput: '',
 };
 
-export const addMessage = () => ({
-  type: ADD_MESSAGE,
-});
-
-export const updateMessageInput = (value) => ({
-  type: UPDATE_MESSAGE_INPUT, value,
-});
-
 const dialogsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_MESSAGE:
@@ -46,5 +38,8 @@ const dialogsReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const addMessage = () => ({ type: ADD_MESSAGE });
+export const updateMessageInput = (value) => ({ type: UPDATE_MESSAGE_INPUT, value });
 
 export default dialogsReducer;

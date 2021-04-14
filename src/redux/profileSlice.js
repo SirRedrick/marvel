@@ -9,14 +9,6 @@ const initialState = {
   postInput: '',
 };
 
-export const addPost = () => ({
-  type: ADD_POST,
-});
-
-export const updatePostInput = (value) => ({
-  type: UPDATE_POST_INPUT, value,
-});
-
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST:
@@ -38,5 +30,8 @@ const profileReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const addPost = () => ({ type: ADD_POST });
+export const updatePostInput = (value) => ({ type: UPDATE_POST_INPUT, value });
 
 export default profileReducer;
