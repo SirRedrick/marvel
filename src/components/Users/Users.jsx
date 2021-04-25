@@ -7,14 +7,17 @@ import userIcon from '../../assets/images/default-user-icon.png';
 const Users = ({
   users, follow, unfollow, setUsers,
 }) => {
-  if (users.length === 0) {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then((res) => {
-      setUsers(res.data.items);
-    }).catch((err) => console.log(err));
-  }
+  const getUsers = () => {
+    if (users.length === 0) {
+      axios.get('https://social-network.samuraijs.com/api/1.0/users').then((res) => {
+        setUsers(res.data.items);
+      });
+    }
+  };
 
   return (
     <div>
+      <button type="button" onClick={getUsers}>Get Users</button>
       {users.map((user) => (
         <div key={user.id}>
           <span>
