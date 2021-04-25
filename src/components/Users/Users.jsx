@@ -6,29 +6,73 @@ import userIcon from '../../assets/images/default-user-icon.png';
 
 class Users extends React.Component {
   componentDidMount() {
-    const { setUsers } = this.props;
+    const {
+      pageSize, currentPage, setUsers, setTotalUsersCount,
+    } = this.props;
     axios
-      .get('https://social-network.samuraijs.com/api/1.0/users')
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
+      )
       .then((res) => {
         setUsers(res.data.items);
+        setTotalUsersCount(res.data.totalCount);
       });
   }
 
+  onPageChange = (page) => {
+    const { setCurrentPage, pageSize, setUsers } = this.props;
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`)
+      .then((res) => {
+        setUsers(res.data.items);
+      });
+    setCurrentPage(page);
+  };
+
   render() {
-    const { users, follow, unfollow } = this.props;
+    const {
+      users, pageSize, totalUsersCount, currentPage, follow, unfollow,
+    } = this.props;
+    const pageCount = Math.ceil(totalUsersCount / pageSize);
+    const pages = [];
+    for (let i = 1; i <= pageCount; i += 1) {
+      pages.push(i);
+    }
 
     return (
       <div>
+        <div>
+          {pages.map((page) => (
+            <button
+              type="button"
+              key={page}
+              className={currentPage === page ? styles.selectedPage : undefined}
+              onClick={() => this.onPageChange(page)}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
         {users.map((user) => (
           <div key={user.id}>
             <span>
               <div>
-                <img src={user.photos.small || userIcon} alt="user avatar" className={styles.photo} />
+                <img
+                  src={user.photos.small || userIcon}
+                  alt="user avatar"
+                  className={styles.photo}
+                />
               </div>
               <div>
-                {user.followed
-                  ? <button type="button" onClick={() => unfollow(user.id)}>Unfollow</button>
-                  : <button type="button" onClick={() => follow(user.id)}>Follow</button>}
+                {user.followed ? (
+                  <button type="button" onClick={() => unfollow(user.id)}>
+                    Unfollow
+                  </button>
+                ) : (
+                  <button type="button" onClick={() => follow(user.id)}>
+                    Follow
+                  </button>
+                )}
               </div>
             </span>
             <span>
@@ -52,7 +96,7 @@ Users.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      photoUrl: PropTypes.string.isRequired,
+      photoUrl: PropTypes.string,
       followed: PropTypes.bool.isRequired,
       fullName: PropTypes.string.isRequired,
       status: PropTypes.string.isRequired,
@@ -62,6 +106,11 @@ Users.propTypes = {
       }).isRequired,
     }).isRequired,
   ).isRequired,
+  pageSize: PropTypes.number.isRequired,
+  totalUsersCount: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  setTotalUsersCount: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
   unfollow: PropTypes.func.isRequired,
   setUsers: PropTypes.func.isRequired,
