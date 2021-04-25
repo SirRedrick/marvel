@@ -4,47 +4,49 @@ import * as axios from 'axios';
 import styles from './Users.module.css';
 import userIcon from '../../assets/images/default-user-icon.png';
 
-const Users = ({
-  users, follow, unfollow, setUsers,
-}) => {
-  const getUsers = () => {
-    if (users.length === 0) {
-      axios.get('https://social-network.samuraijs.com/api/1.0/users').then((res) => {
+class Users extends React.Component {
+  componentDidMount() {
+    const { setUsers } = this.props;
+    axios
+      .get('https://social-network.samuraijs.com/api/1.0/users')
+      .then((res) => {
         setUsers(res.data.items);
       });
-    }
-  };
+  }
 
-  return (
-    <div>
-      <button type="button" onClick={getUsers}>Get Users</button>
-      {users.map((user) => (
-        <div key={user.id}>
-          <span>
-            <div>
-              <img src={user.photos.small || userIcon} alt="user avatar" className={styles.photo} />
-            </div>
-            <div>
-              {user.followed
-                ? <button type="button" onClick={() => unfollow(user.id)}>Unfollow</button>
-                : <button type="button" onClick={() => follow(user.id)}>Follow</button>}
-            </div>
-          </span>
-          <span>
+  render() {
+    const { users, follow, unfollow } = this.props;
+
+    return (
+      <div>
+        {users.map((user) => (
+          <div key={user.id}>
             <span>
-              <div>{user.name}</div>
-              <div>{user.status}</div>
+              <div>
+                <img src={user.photos.small || userIcon} alt="user avatar" className={styles.photo} />
+              </div>
+              <div>
+                {user.followed
+                  ? <button type="button" onClick={() => unfollow(user.id)}>Unfollow</button>
+                  : <button type="button" onClick={() => follow(user.id)}>Follow</button>}
+              </div>
             </span>
             <span>
-              <div>user.location.country</div>
-              <div>user.location.city</div>
+              <span>
+                <div>{user.name}</div>
+                <div>{user.status}</div>
+              </span>
+              <span>
+                <div>user.location.country</div>
+                <div>user.location.city</div>
+              </span>
             </span>
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-};
+          </div>
+        ))}
+      </div>
+    );
+  }
+}
 
 Users.propTypes = {
   users: PropTypes.arrayOf(
